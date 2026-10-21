@@ -28,7 +28,7 @@ export default function FeedbackReport({ sessionData, onReturnDashboard }) {
             Session Complete — Report Card
           </span>
 
-          <h2 style={{ fontSize: '2.25rem', fontWeight: 800, color: '#fff' }}>
+          <h2 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--text-main)' }}>
             AI Mock Interview Evaluation
           </h2>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
@@ -88,14 +88,14 @@ export default function FeedbackReport({ sessionData, onReturnDashboard }) {
         {/* Detailed Question Answers */}
         {history.length > 0 && (
           <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', marginBottom: '1rem' }}>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
               Question Breakdown
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {history.map((item, idx) => (
                 <div key={idx} style={{ padding: '1rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                    <span style={{ fontWeight: 700, color: '#fff' }}>Q{idx + 1}: {item.question}</span>
+                    <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>Q{idx + 1}: {item.question}</span>
                     <span className="badge badge-emerald">{item.evaluation.score}%</span>
                   </div>
                   <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>

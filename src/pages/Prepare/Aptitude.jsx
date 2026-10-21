@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { APTITUDE_CATEGORIES } from '../../lib/seedData';
-import { BrainCircuit, Clock, CheckCircle2, XCircle, ArrowRight, RotateCcw } from 'lucide-react';
+import { BrainCircuit, Clock, CheckCircle2, XCircle, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react';
 
 export default function Aptitude() {
   const [activeCategory, setActiveCategory] = useState(APTITUDE_CATEGORIES[0]);
@@ -8,6 +8,7 @@ export default function Aptitude() {
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [testFinished, setTestFinished] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const sampleQuestions = [
     {
@@ -15,21 +16,24 @@ export default function Aptitude() {
       question: "A and B can complete a work in 12 days and 18 days respectively. A works for 4 days and then leaves. In how many days can B alone complete the remaining work?",
       options: ["9 days", "12 days", "14 days", "10 days"],
       correct: 1, // 12 days
-      explanation: "A's 1 day work = 1/12. A's 4 days work = 4/12 = 1/3. Remaining work = 1 - 1/3 = 2/3. B's 1 day work = 1/18. Time taken by B = (2/3) / (1/18) = 12 days."
+      explanation: "A's 1 day work = 1/12. A's 4 days work = 4/12 = 1/3. Remaining work = 1 - 1/3 = 2/3. B's 1 day work = 1/18. Time taken by B = (2/3) / (1/18) = 12 days.",
+      hint: "Calculate how much work A did in 4 days, then find the remaining work for B."
     },
     {
       id: "q2",
       question: "If 'PRODUCE' is coded as 'OROCDEP', how is 'FLAWLESS' coded in that same system?",
       options: ["EKBVLDDR", "EKAWLESR", "EKBWLESR", "EKAVLDER"],
       correct: 0,
-      explanation: "Each letter is shifted backward by 1 position: P->O, R->Q, etc. Applying to FLAWLESS yields EKBVLDDR."
+      explanation: "Each letter is shifted backward by 1 position: P->O, R->Q, etc. Applying to FLAWLESS yields EKBVLDDR.",
+      hint: "Look at the relationship between the first letter 'P' and 'O'. It's shifted by -1."
     },
     {
       id: "q3",
       question: "Choose the word which is most nearly SIMILAR in meaning to 'RESILIENT':",
       options: ["Fragile", "Adaptable & Robust", "Indifferent", "Rigid"],
       correct: 1,
-      explanation: "'Resilient' means able to withstand or recover quickly from difficult conditions (Adaptable & Robust)."
+      explanation: "'Resilient' means able to withstand or recover quickly from difficult conditions (Adaptable & Robust).",
+      hint: "Think of a rubber band bouncing back to its original shape."
     }
   ];
 
@@ -55,7 +59,7 @@ export default function Aptitude() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <BrainCircuit size={24} color="var(--accent-amber)" />
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
               MNC Aptitude & Reasoning Suite
             </h2>
           </div>
@@ -78,7 +82,7 @@ export default function Aptitude() {
             <div key={cat.id} className="card card-hover" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <span className="badge badge-amber" style={{ marginBottom: '0.75rem' }}>{cat.topics.length} Key Topics</span>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.75rem' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.75rem' }}>
                   {cat.title}
                 </h3>
                 <ul style={{ paddingLeft: '1.25rem', fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
@@ -109,9 +113,15 @@ export default function Aptitude() {
               </div>
 
               {/* Question Text */}
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
                 {sampleQuestions[currentQuestionIdx].question}
               </h3>
+
+              {showHint && (
+                <div style={{ padding: '1rem', marginBottom: '1.5rem', backgroundColor: 'rgba(245, 158, 11, 0.1)', borderLeft: '4px solid #f59e0b', borderRadius: '0.25rem', color: '#fcd34d', fontSize: '0.875rem' }}>
+                  <strong>Hint:</strong> {sampleQuestions[currentQuestionIdx].hint}
+                </div>
+              )}
 
               {/* Options */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
@@ -154,9 +164,15 @@ export default function Aptitude() {
                 </button>
 
                 {currentQuestionIdx < sampleQuestions.length - 1 ? (
-                  <button onClick={() => setCurrentQuestionIdx(currentQuestionIdx + 1)} className="btn btn-primary">
-                    Next Question
-                  </button>
+                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <button onClick={() => setShowHint(true)} className="btn btn-secondary" style={{ color: '#f59e0b', borderColor: '#f59e0b' }}>
+                      <Lightbulb size={16} />
+                      <span>Get Hint</span>
+                    </button>
+                    <button onClick={() => { setCurrentQuestionIdx(currentQuestionIdx + 1); setShowHint(false); }} className="btn btn-primary">
+                      Next Question
+                    </button>
+                  </div>
                 ) : (
                   <button onClick={handleFinishTest} className="btn btn-emerald">
                     Submit Aptitude Test
@@ -168,7 +184,7 @@ export default function Aptitude() {
             /* Test Results Score Card */
             <div style={{ textAlign: 'center', padding: '1rem' }}>
               <span className="badge badge-emerald" style={{ marginBottom: '1rem' }}>Test Completed</span>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem' }}>
+              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
                 Aptitude Test Results
               </h2>
               <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--accent-emerald)', margin: '1rem 0' }}>
@@ -182,7 +198,7 @@ export default function Aptitude() {
               <div style={{ textAlign: 'left', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {sampleQuestions.map((q, idx) => (
                   <div key={idx} style={{ padding: '1rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
-                    <div style={{ fontWeight: 700, color: '#fff', marginBottom: '0.25rem' }}>
+                    <div style={{ fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.25rem' }}>
                       {idx + 1}. {q.question}
                     </div>
                     <div style={{ fontSize: '0.8125rem', color: 'var(--accent-emerald)', marginTop: '0.25rem' }}>

@@ -9,7 +9,7 @@ export default function Companies({ onStartCompanyMock }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <Building2 size={24} color="var(--accent-emerald)" />
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
               Target MNC Company Practice Tracks
             </h2>
           </div>
@@ -24,7 +24,7 @@ export default function Companies({ onStartCompanyMock }) {
           <div key={c.id} className="card card-hover" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: '#fff' }}>
+                <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--text-main)' }}>
                   {c.name}
                 </h3>
                 <span className="badge badge-indigo">{c.difficulty} Difficulty</span>

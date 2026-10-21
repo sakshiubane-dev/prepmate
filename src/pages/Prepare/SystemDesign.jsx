@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Plus, Server, Database, Cpu, Layers, Sparkles, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Compass, Plus, Server, Database, Cpu, Layers, Sparkles, AlertTriangle, CheckCircle2, ArrowRight, X, ChevronRight, ChevronLeft, Info } from 'lucide-react';
 import { aiOrchestrator } from '../../lib/ai/aiOrchestrator';
 
 export default function SystemDesign() {
@@ -14,6 +14,8 @@ export default function SystemDesign() {
   const [aiEvaluation, setAiEvaluation] = useState(null);
   const [evaluating, setEvaluating] = useState(false);
   const [selectedScenario, setSelectedScenario] = useState("URL Shortener (TinyURL)");
+  const [showTools, setShowTools] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   const componentPalette = [
     { type: 'Client', label: 'Web / Mobile Client', color: '#6366f1' },
@@ -58,7 +60,7 @@ export default function SystemDesign() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Compass size={24} color="var(--accent-violet)" />
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>
               System Design & Architecture Canvas
             </h2>
             <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
@@ -75,7 +77,7 @@ export default function SystemDesign() {
               padding: '0.5rem 1rem',
               borderRadius: '0.5rem',
               backgroundColor: 'var(--bg-surface-hover)',
-              color: '#fff',
+              color: 'var(--text-main)',
               border: '1px solid var(--border-color)',
               fontWeight: 600,
               fontSize: '0.875rem'
@@ -95,35 +97,71 @@ export default function SystemDesign() {
       </div>
 
       {/* Main Workspace: Palette + Canvas + AI Feedback */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr 380px', gap: '1rem', flex: 1, minHeight: 0 }}>
-        {/* Left: Component Palette */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
-            ARCHITECTURAL COMPONENTS
-          </span>
+      <div style={{ display: 'grid', gridTemplateColumns: showTools ? '240px 1fr 380px' : 'auto 1fr 380px', gap: '1rem', flex: 1, minHeight: 0, transition: 'all 0.3s ease' }}>
+        
+        {/* Left: Component Palette (Collapsible) */}
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: showTools ? '1.5rem' : '1rem', width: showTools ? 'auto' : '60px', alignItems: showTools ? 'stretch' : 'center' }}>
+          <button 
+            onClick={() => setShowTools(!showTools)}
+            className="btn btn-secondary btn-sm"
+            style={{ alignSelf: showTools ? 'flex-end' : 'center', padding: '0.5rem' }}
+          >
+            {showTools ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+          </button>
 
-          {componentPalette.map((comp, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleAddNode(comp)}
-              className="btn btn-secondary btn-sm"
-              style={{ justifyContent: 'flex-start', borderLeft: `4px solid ${comp.color}` }}
-            >
-              <Plus size={14} />
-              <span>{comp.label}</span>
-            </button>
-          ))}
+          {showTools && (
+            <>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
+                ARCHITECTURAL COMPONENTS
+              </span>
 
-          <div style={{ marginTop: 'auto', padding: '0.75rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-violet)' }}>Pro Tip:</span>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '0.25rem' }}>
-              Position Redis caching between API Services and PostgreSQL to handle read spikes.
-            </p>
-          </div>
+              {componentPalette.map((comp, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleAddNode(comp)}
+                  className="btn btn-secondary btn-sm"
+                  style={{ justifyContent: 'flex-start', borderLeft: `4px solid ${comp.color}` }}
+                >
+                  <Plus size={14} />
+                  <span>{comp.label}</span>
+                </button>
+              ))}
+
+              <div style={{ marginTop: 'auto', padding: '0.75rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-violet)' }}>Pro Tip:</span>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '0.25rem' }}>
+                  Position Redis caching between API Services and PostgreSQL to handle read spikes.
+                </p>
+              </div>
+            </>
+          )}
+          {!showTools && (
+            <div style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', color: 'var(--text-dim)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.1em', marginTop: '1rem' }}>
+              TOOLS
+            </div>
+          )}
         </div>
 
         {/* Center: System Architecture Canvas */}
         <div className="card" style={{ position: 'relative', overflow: 'hidden', backgroundColor: 'var(--bg-dark)', border: '1px solid var(--border-color)', padding: '1rem' }}>
+          
+          {showOnboarding && (
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.8)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ backgroundColor: 'var(--bg-surface)', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', border: '1px solid var(--accent-violet)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                  <Info size={24} color="var(--accent-violet)" />
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)' }}>Welcome to the Canvas!</h3>
+                </div>
+                <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
+                  Expand the tools menu on the left to add architectural components like Load Balancers, Databases, and Caches. Build your system and click <strong>Evaluate System AI</strong> for instant feedback!
+                </p>
+                <button onClick={() => setShowOnboarding(false)} className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                  Got it!
+                </button>
+              </div>
+            </div>
+          )}
+
           <div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 10 }}>
             <span className="badge badge-indigo">Active Scenario: {selectedScenario}</span>
           </div>
@@ -149,7 +187,7 @@ export default function SystemDesign() {
                   border: `2px solid ${node.color}`,
                   borderRadius: '0.5rem',
                   boxShadow: 'var(--shadow-md)',
-                  color: '#fff',
+                  color: 'var(--text-main)',
                   fontSize: '0.875rem',
                   fontWeight: 700,
                   display: 'flex',
@@ -177,7 +215,7 @@ export default function SystemDesign() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: 'rgba(139, 92, 246, 0.12)', borderRadius: '0.5rem', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
                 <div>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-violet)' }}>System Design Score</span>
-                  <div style={{ fontSize: '2.25rem', fontWeight: 800, color: '#fff' }}>{aiEvaluation.score}%</div>
+                  <div style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--text-main)' }}>{aiEvaluation.score}%</div>
                 </div>
                 <span className="badge badge-violet">Detailed Breakdown</span>
               </div>
@@ -209,7 +247,7 @@ export default function SystemDesign() {
                 <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-primary)', display: 'block', marginBottom: '0.375rem' }}>
                   INTERVIEWER FOLLOW-UP QUESTION:
                 </span>
-                <p style={{ fontSize: '0.875rem', color: '#fff', fontStyle: 'italic', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.875rem', color: 'var(--text-main)', fontStyle: 'italic', lineHeight: 1.5 }}>
                   "{aiEvaluation.followUpQuestion}"
                 </p>
               </div>

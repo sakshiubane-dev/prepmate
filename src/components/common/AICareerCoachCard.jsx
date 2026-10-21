@@ -1,106 +1,110 @@
-import React from 'react';
-import { Sparkles, ArrowRight, CheckCircle2, Target } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, ArrowRight, Info } from 'lucide-react';
 
 export default function AICareerCoachCard({ recommendation, onStartPractice }) {
+  const [showReason, setShowReason] = useState(false);
+
   if (!recommendation) return null;
 
   return (
     <div className="card" style={{
-      background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%)',
-      border: '1px solid rgba(99, 102, 241, 0.25)',
+      background: 'var(--bg-surface)',
+      border: '1px solid var(--border-color)',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'
     }}>
-      {/* Decorative Accent Glow */}
-      <div style={{
-        position: 'absolute',
-        top: '-40px',
-        right: '-40px',
-        width: '140px',
-        height: '140px',
-        borderRadius: '50%',
-        background: 'rgba(99, 102, 241, 0.2)',
-        filter: 'blur(40px)',
-        pointerEvents: 'none'
-      }} />
-
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.875rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <div style={{
             width: '28px',
             height: '28px',
             borderRadius: '6px',
-            background: 'var(--accent-primary)',
+            background: 'var(--accent-ai)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff'
+            color: 'var(--text-main)'
           }}>
             <Sparkles size={16} />
           </div>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-primary)', letterSpacing: '0.05em' }}>
-            AI CAREER COACH RECOMMENDATION
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-ai)', letterSpacing: '0.05em' }}>
+            AI CAREER COACH
           </span>
         </div>
-        <span className="badge badge-indigo">Personalized</span>
       </div>
 
-      {/* Title & Reason */}
-      <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', marginBottom: '0.375rem' }}>
-        {recommendation.title}
-      </h3>
-      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: 1.5 }}>
-        {recommendation.reason}
-      </p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.25rem' }}>
+          Your Next Best Step
+        </h3>
+        <button 
+          onMouseEnter={() => setShowReason(true)}
+          onMouseLeave={() => setShowReason(false)}
+          style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer' }}
+        >
+          <Info size={16} />
+        </button>
+      </div>
 
-      {/* Steps List */}
+      <AnimatePresence>
+        {showReason && (
+          <motion.div 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            style={{
+              padding: '0.75rem',
+              background: 'var(--bg-surface-active)',
+              borderRadius: '0.5rem',
+              fontSize: '0.8125rem',
+              color: 'var(--text-secondary)',
+              marginBottom: '1rem',
+              border: '1px solid var(--border-color)'
+            }}
+          >
+            <strong>Why this?</strong> {recommendation.reason}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {!showReason && (
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.25rem', lineHeight: 1.5 }}>
+          {recommendation.title}
+        </p>
+      )}
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.25rem' }}>
         {recommendation.suggestedSteps.map((s, idx) => (
-          <div key={idx} style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '0.5rem 0.75rem',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: '0.375rem',
-            border: '1px solid var(--border-color)'
-          }}>
+          <motion.div 
+            whileHover={{ x: 4, backgroundColor: 'var(--bg-surface-hover)' }}
+            key={idx} 
+            onClick={() => onStartPractice(recommendation.targetRoute)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0.625rem 0.75rem',
+              backgroundColor: 'var(--bg-surface-active)',
+              borderRadius: '0.375rem',
+              border: '1px solid transparent',
+              cursor: 'pointer'
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-              <span style={{
-                width: '20px',
-                height: '20px',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                color: 'var(--accent-primary)',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                {s.step}
-              </span>
               <span style={{ fontSize: '0.875rem', color: 'var(--text-main)', fontWeight: 500 }}>
-                {s.action}
+                {idx + 1}. {s.action}
               </span>
             </div>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 600 }}>
               {s.time}
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
-
-      {/* Action CTA */}
-      <button
-        onClick={() => onStartPractice(recommendation.targetRoute)}
-        className="btn btn-primary btn-sm"
-        style={{ width: '100%', justifyContent: 'center' }}
-      >
-        <span>{recommendation.ctaText}</span>
-        <ArrowRight size={16} />
-      </button>
     </div>
   );
 }

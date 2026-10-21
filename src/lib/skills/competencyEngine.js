@@ -14,16 +14,21 @@ export const CATEGORY_WEIGHTS = {
   consistency: 0.07    // Interview streak & practice volume
 };
 
+import { BRANCH_WEIGHTS } from '../config/engineeringBranches.js';
+
 /**
- * Calculates the overall MNC Readiness Score from category scores (each 0-100)
+ * Calculates the overall Readiness Score from category scores (each 0-100)
  * @param {Object} categoryScores 
- * @returns {number} Integer MNC Readiness Score (0-100)
+ * @param {String} branch - The engineering branch id (e.g. 'cs', 'extc')
+ * @returns {number} Integer Readiness Score (0-100)
  */
-export function calculateMncReadinessScore(categoryScores = {}) {
+export function calculateMncReadinessScore(categoryScores = {}, branch = 'cs') {
   let weightedSum = 0;
   let totalWeight = 0;
+  
+  const weights = BRANCH_WEIGHTS[branch] || BRANCH_WEIGHTS['default'];
 
-  for (const [key, weight] of Object.entries(CATEGORY_WEIGHTS)) {
+  for (const [key, weight] of Object.entries(weights)) {
     const score = categoryScores[key] ?? 50;
     weightedSum += score * weight;
     totalWeight += weight;

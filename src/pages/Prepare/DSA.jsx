@@ -46,7 +46,7 @@ export default function DSA({ onCompleteProblem }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Code2 size={24} color="var(--accent-emerald)" />
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>
             DSA & AI Coding Sandbox
           </h2>
           <span className="badge badge-emerald">In-Browser Code Runner</span>
@@ -60,7 +60,7 @@ export default function DSA({ onCompleteProblem }) {
               padding: '0.375rem 0.75rem',
               borderRadius: '0.375rem',
               backgroundColor: 'var(--bg-surface-hover)',
-              color: '#fff',
+              color: 'var(--text-main)',
               border: '1px solid var(--border-color)',
               fontWeight: 600,
               fontSize: '0.8125rem'
@@ -124,7 +124,7 @@ export default function DSA({ onCompleteProblem }) {
           {/* Problem Prompt */}
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>
                 {selectedProblem.title}
               </h3>
               <span className="badge badge-indigo">{selectedProblem.category}</span>
@@ -146,7 +146,7 @@ export default function DSA({ onCompleteProblem }) {
             {selectedProblem.examples && selectedProblem.examples.map((ex, idx) => (
               <div key={idx} style={{ padding: '0.75rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.375rem', marginBottom: '1rem', border: '1px solid var(--border-color)' }}>
                 <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-primary)' }}>Example {idx + 1}:</span>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8125rem', color: '#fff', marginTop: '0.25rem' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8125rem', color: 'var(--text-main)', marginTop: '0.25rem' }}>
                   Input: {ex.input}<br />
                   Output: {ex.output}
                 </div>
@@ -211,8 +211,8 @@ export default function DSA({ onCompleteProblem }) {
                   </span>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  <span>Runtime: <strong style={{ color: '#fff' }}>{output.runtime}</strong></span>
-                  <span>Memory: <strong style={{ color: '#fff' }}>{output.memory}</strong></span>
+                  <span>Runtime: <strong style={{ color: 'var(--text-main)' }}>{output.runtime}</strong></span>
+                  <span>Memory: <strong style={{ color: 'var(--text-main)' }}>{output.memory}</strong></span>
                   <span>Target Complexity: <strong style={{ color: 'var(--accent-primary)' }}>{output.complexity}</strong></span>
                 </div>
               </div>

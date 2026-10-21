@@ -25,7 +25,7 @@ export default function ResumeBuilder({ onNavigateToAts }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <FileText size={24} color="var(--accent-primary)" />
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
               MNC AI Resume Builder
             </h2>
           </div>
@@ -56,7 +56,7 @@ export default function ResumeBuilder({ onNavigateToAts }) {
           {resume.experience.map((exp, expIdx) => (
             <div key={expIdx} style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontWeight: 700, color: '#fff' }}>{exp.role} @ {exp.company}</span>
+                <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>{exp.role} @ {exp.company}</span>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>{exp.duration}</span>
               </div>
 
@@ -72,7 +72,7 @@ export default function ResumeBuilder({ onNavigateToAts }) {
                     style={{
                       width: '100%',
                       backgroundColor: 'var(--bg-surface)',
-                      color: '#fff',
+                      color: 'var(--text-main)',
                       fontSize: '0.875rem',
                       padding: '0.75rem',
                       borderRadius: '0.375rem',

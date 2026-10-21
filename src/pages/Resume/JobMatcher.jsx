@@ -17,7 +17,7 @@ export default function JobMatcher({ onOptimizeResume }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <Layers size={24} color="var(--accent-violet)" />
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
               Job Description Matcher & Gap Analyzer
             </h2>
           </div>
@@ -36,7 +36,7 @@ export default function JobMatcher({ onOptimizeResume }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
         {/* Left: Job Description Input */}
         <div className="card">
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', marginBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.75rem' }}>
             Target Job Description (MNC Posting)
           </h3>
           <textarea
@@ -46,7 +46,7 @@ export default function JobMatcher({ onOptimizeResume }) {
               width: '100%',
               height: '320px',
               backgroundColor: 'var(--bg-dark)',
-              color: '#fff',
+              color: 'var(--text-main)',
               fontSize: '0.875rem',
               padding: '1rem',
               borderRadius: '0.5rem',
@@ -62,7 +62,7 @@ export default function JobMatcher({ onOptimizeResume }) {
         <div className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 Role Compatibility Score
               </h3>
               <span className="badge badge-emerald" style={{ fontSize: '1rem', fontWeight: 800 }}>

@@ -25,7 +25,7 @@ export default function SkillProgressBar({ name, score, icon: Icon }) {
           <span className={`badge ${status.badge}`} style={{ fontSize: '0.6875rem', padding: '0.125rem 0.375rem' }}>
             {status.label}
           </span>
-          <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff' }}>
+          <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)' }}>
             {score}%
           </span>
         </div>

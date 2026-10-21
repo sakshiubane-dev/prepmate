@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Zap, 
   ShieldCheck, 
   Sparkles, 
   Code2, 
@@ -51,11 +50,16 @@ export default function Landing({ onStart, onExplore }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff'
+            color: 'var(--text-main)'
           }}>
-            <Zap size={20} />
+            <img
+              src="/images/prepmate-logo.png"
+              alt=""
+              aria-hidden="true"
+              style={{ width: '34px', height: '34px', objectFit: 'contain', borderRadius: '8px' }}
+            />
           </div>
-          <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff' }}>
+          <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text-main)' }}>
             PREPMATE
           </span>
         </div>
@@ -187,7 +191,7 @@ export default function Landing({ onStart, onExplore }) {
       {/* Feature Grid */}
       <section style={{ padding: '5rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <h2 style={{ fontSize: '2.25rem', fontWeight: 800, marginBottom: '1rem', color: '#fff' }}>
+          <h2 style={{ fontSize: '2.25rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--text-main)' }}>
             Everything you need in one platform
           </h2>
           <p style={{ fontSize: '1.125rem', color: 'var(--text-muted)' }}>
@@ -213,7 +217,7 @@ export default function Landing({ onStart, onExplore }) {
                 }}>
                   <Icon size={22} />
                 </div>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', marginBottom: '0.5rem' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
                   {f.title}
                 </h3>
                 <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
@@ -232,7 +236,7 @@ export default function Landing({ onStart, onExplore }) {
         textAlign: 'center',
         background: 'linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-dark) 100%)'
       }}>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '1rem' }}>
           Ready to raise your MNC Readiness Score?
         </h2>
         <p style={{ fontSize: '1.125rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>

@@ -8,7 +8,7 @@ export default function Analytics({ candidate }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <BarChart3 size={24} color="var(--accent-primary)" />
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
               Competency Analytics & Progression
             </h2>
           </div>
@@ -24,21 +24,68 @@ export default function Analytics({ candidate }) {
 
       {/* Progress Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
-        <div className="card">
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>SYSTEM DESIGN SCORE PROGRESSION</span>
-          <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-violet)', margin: '0.5rem 0' }}>
-            42 → 51 → 64
-          </div>
-          <span className="badge badge-violet">+22 points overall improvement</span>
-        </div>
-
-        <div className="card">
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>DSA ACCURACY RATE</span>
-          <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-emerald)', margin: '0.5rem 0' }}>
-            82.4%
-          </div>
-          <span className="badge badge-emerald">24 Problems Completed</span>
-        </div>
+        {(() => {
+          switch (candidate?.branch) {
+            case 'extc':
+              return (
+                <>
+                  <div className="card">
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>DIGITAL ELECTRONICS PROGRESSION</span>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-violet)', margin: '0.5rem 0' }}>
+                      54 → 68 → 79
+                    </div>
+                    <span className="badge badge-violet">+25 points overall improvement</span>
+                  </div>
+                  <div className="card">
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>MICROCONTROLLER & EMBEDDED ACCURACY</span>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-emerald)', margin: '0.5rem 0' }}>
+                      78.5%
+                    </div>
+                    <span className="badge badge-emerald">18 Modules Completed</span>
+                  </div>
+                </>
+              );
+            case 'mechanical':
+              return (
+                <>
+                  <div className="card">
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>THERMODYNAMICS & SOM PROGRESSION</span>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-violet)', margin: '0.5rem 0' }}>
+                      48 → 62 → 75
+                    </div>
+                    <span className="badge badge-violet">+27 points overall improvement</span>
+                  </div>
+                  <div className="card">
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>MACHINE DESIGN ACCURACY</span>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-emerald)', margin: '0.5rem 0' }}>
+                      80.2%
+                    </div>
+                    <span className="badge badge-emerald">15 Design Scenarios Completed</span>
+                  </div>
+                </>
+              );
+            case 'cs':
+            default:
+              return (
+                <>
+                  <div className="card">
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>SYSTEM DESIGN SCORE PROGRESSION</span>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-violet)', margin: '0.5rem 0' }}>
+                      42 → 51 → 64
+                    </div>
+                    <span className="badge badge-violet">+22 points overall improvement</span>
+                  </div>
+                  <div className="card">
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>DSA ACCURACY RATE</span>
+                    <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-emerald)', margin: '0.5rem 0' }}>
+                      82.4%
+                    </div>
+                    <span className="badge badge-emerald">24 Problems Completed</span>
+                  </div>
+                </>
+              );
+          }
+        })()}
 
         <div className="card">
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-dim)' }}>INTERVIEW CONSISTENCY STREAK</span>

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check, Sparkles, Building2, Code2, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Check, Sparkles, Building2, Code2, ShieldCheck, Laptop, Cpu, Settings as GearIcon, Building, Dna, Briefcase } from 'lucide-react';
+import { ENGINEERING_BRANCHES, CAREER_TARGETS_BY_BRANCH } from '../lib/config/engineeringBranches.js';
 
 export default function Onboarding({ onComplete }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+    branch: "cs",
+    careerTrack: "software",
     targetRole: "Full Stack Developer",
     experienceLevel: "Fresher / Early-Career (0-1 yrs)",
     stack: ["JavaScript", "React", "Node.js", "SQL"],
@@ -11,15 +14,16 @@ export default function Onboarding({ onComplete }) {
     timeline: "Next 30 Days"
   });
 
-  const roles = [
-    "Software Engineer",
-    "Frontend Developer",
-    "Backend Developer",
-    "Full Stack Developer",
-    "Data Engineer",
-    "ML Engineer",
-    "DevOps / Cloud Engineer"
-  ];
+  const getBranchIcon = (iconName) => {
+    switch(iconName) {
+      case 'Laptop': return <Laptop size={24} />;
+      case 'Cpu': return <Cpu size={24} />;
+      case 'Settings': return <GearIcon size={24} />;
+      case 'Building': return <Building size={24} />;
+      case 'Dna': return <Dna size={24} />;
+      default: return <Briefcase size={24} />;
+    }
+  };
 
   const experienceLevels = [
     "Student / Fresher",
@@ -66,7 +70,7 @@ export default function Onboarding({ onComplete }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span className="badge badge-indigo">Step {step} of 3</span>
             <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-              {step === 1 ? 'Target Role & Experience' : step === 2 ? 'Tech Stack & Target Companies' : 'Interview Timeline & Goals'}
+              {step === 1 ? 'Engineering Track & Goal' : step === 2 ? 'Tech Stack & Target Companies' : 'Interview Timeline & Goals'}
             </span>
           </div>
           <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 600 }}>
@@ -77,41 +81,58 @@ export default function Onboarding({ onComplete }) {
         {/* STEP 1 */}
         {step === 1 && (
           <div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem' }}>
-              What position are you aiming for?
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
+              Select your Engineering Branch
             </h2>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-              Select your primary target role and experience level to calibrate your MNC Readiness benchmark.
+              Choose your core domain so we can personalize your readiness benchmark and technical roadmaps.
             </p>
 
-            <label style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem' }}>
-              Target Software Engineering Role
-            </label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.625rem', marginBottom: '1.5rem' }}>
-              {roles.map(r => (
-                <button
-                  key={r}
-                  onClick={() => setFormData({ ...formData, targetRole: r })}
-                  className={`btn ${formData.targetRole === r ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ justifyContent: 'flex-start', textAlign: 'left', fontSize: '0.8125rem' }}
-                >
-                  {r}
-                </button>
-              ))}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              {ENGINEERING_BRANCHES.map(b => {
+                const isSelected = formData.branch === b.id;
+                return (
+                  <button
+                    key={b.id}
+                    onClick={() => setFormData({ ...formData, branch: b.id })}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      padding: '1.25rem 0.75rem',
+                      borderRadius: '0.75rem',
+                      border: isSelected ? '2px solid var(--accent-primary)' : '1px solid var(--border-color)',
+                      backgroundColor: isSelected ? 'rgba(99, 102, 241, 0.1)' : 'var(--bg-dark)',
+                      color: isSelected ? '#fff' : 'var(--text-muted)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <div style={{ color: isSelected ? 'var(--accent-primary)' : 'var(--text-dim)' }}>
+                      {getBranchIcon(b.icon)}
+                    </div>
+                    <span style={{ fontSize: '0.8125rem', fontWeight: isSelected ? 700 : 500, textAlign: 'center' }}>
+                      {b.label}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
             <label style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)', display: 'block', marginBottom: '0.5rem' }}>
-              Current Experience Level
+              What are you preparing for?
             </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {experienceLevels.map(exp => (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.625rem', marginBottom: '1.5rem' }}>
+              {(CAREER_TARGETS_BY_BRANCH[formData.branch] || CAREER_TARGETS_BY_BRANCH['cs']).map(track => (
                 <button
-                  key={exp}
-                  onClick={() => setFormData({ ...formData, experienceLevel: exp })}
-                  className={`btn ${formData.experienceLevel === exp ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ justifyContent: 'flex-start', textAlign: 'left', fontSize: '0.875rem' }}
+                  key={track.id}
+                  onClick={() => setFormData({ ...formData, careerTrack: track.id })}
+                  className={`btn ${formData.careerTrack === track.id ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ justifyContent: 'flex-start', textAlign: 'left', fontSize: '0.8125rem' }}
                 >
-                  {exp}
+                  {track.label}
                 </button>
               ))}
             </div>
@@ -121,7 +142,7 @@ export default function Onboarding({ onComplete }) {
         {/* STEP 2 */}
         {step === 2 && (
           <div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
               Select your stack & target MNCs
             </h2>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
@@ -171,7 +192,7 @@ export default function Onboarding({ onComplete }) {
         {/* STEP 3 */}
         {step === 3 && (
           <div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
               Interview Timeline & Preparation Goal
             </h2>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>

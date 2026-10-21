@@ -38,7 +38,7 @@ export default function CoreCS() {
     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem' }}>
         <Layers size={24} color="var(--accent-primary)" />
-        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
           Core Computer Science Subject Suites
         </h2>
       </div>
@@ -50,7 +50,7 @@ export default function CoreCS() {
             <div key={sub.id} className="card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
                 <Icon size={20} color={sub.color} />
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)' }}>
                   {sub.title}
                 </h3>
               </div>
@@ -58,7 +58,7 @@ export default function CoreCS() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {sub.topics.map((t, idx) => (
                   <div key={idx} style={{ padding: '1rem', backgroundColor: 'var(--bg-dark)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
-                    <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#fff', marginBottom: '0.25rem' }}>
+                    <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.25rem' }}>
                       Q: {t.q}
                     </div>
                     <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>

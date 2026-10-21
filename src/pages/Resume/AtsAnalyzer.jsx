@@ -17,7 +17,7 @@ export default function AtsAnalyzer() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <ShieldCheck size={24} color="var(--accent-emerald)" />
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
               ATS Resume & Keyword Analyzer
             </h2>
           </div>
@@ -98,7 +98,7 @@ export default function AtsAnalyzer() {
 
       {/* Job Description Text Box */}
       <div className="card">
-        <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#fff', marginBottom: '0.75rem' }}>
+        <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.75rem' }}>
           Target Job Description
         </h3>
         <textarea
@@ -108,7 +108,7 @@ export default function AtsAnalyzer() {
             width: '100%',
             height: '150px',
             backgroundColor: 'var(--bg-dark)',
-            color: '#fff',
+            color: 'var(--text-main)',
             fontSize: '0.875rem',
             padding: '1rem',
             borderRadius: '0.5rem',
